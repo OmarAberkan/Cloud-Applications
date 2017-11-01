@@ -7,8 +7,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using test.Services;
+using test.Data;
+using Microsoft.EntityFrameworkCore;
 
-namespace What_can_i_eat
+namespace test
 {
     public class Startup
     {
@@ -22,7 +25,11 @@ namespace What_can_i_eat
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddCors();
+            services.AddDbContext<UserContext>(x => x.UseInMemoryDatabase("TestDb"));
             services.AddMvc();
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

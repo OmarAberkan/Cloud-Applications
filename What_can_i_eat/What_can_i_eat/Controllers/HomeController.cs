@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace What_can_i_eat.Controllers
+namespace test.Controllers
 {
     public class HomeController : Controller
     {
