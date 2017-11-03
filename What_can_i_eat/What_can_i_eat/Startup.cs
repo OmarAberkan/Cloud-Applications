@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using test.Services;
 using test.Data;
 using Microsoft.EntityFrameworkCore;
+using What_can_i_eat.Data;
 
 namespace test
 {
@@ -26,14 +27,17 @@ namespace test
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddDbContext<UserContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddCors();
-            services.AddDbContext<UserContext>(x => x.UseInMemoryDatabase("TestDb"));
+            
             services.AddMvc();
+            services.AddSession();
             services.AddScoped<IUserService, UserService>();
-        }
+   }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserContext context)
         {
             if (env.IsDevelopment())
             {
@@ -49,7 +53,7 @@ namespace test
             }
 
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -60,6 +64,9 @@ namespace test
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
             });
-        }
+            DBInitializer.Initialize(context);
+        
+
     }
+}
 }

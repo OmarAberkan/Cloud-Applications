@@ -1,14 +1,16 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using test.Data;
 using test.Models;
 using test.Services;
+using Microsoft.AspNetCore.Http;
+using QuestionApp.Models;
 
 namespace test.Controllers
 {
@@ -21,7 +23,7 @@ namespace test.Controllers
             _userService = userService;
         }
         [AllowAnonymous]
-        [HttpPost("authenticate")]
+        [HttpPost]
         // changed authenticate to login
         public IActionResult Login([FromBody]User loggedUser)
         {
@@ -29,43 +31,74 @@ namespace test.Controllers
 
             if (user == null)
                 return Unauthorized();
-
-            // return basic user info (without password) and token to store client side
-            return Ok(new
+            else
             {
-                Id = user.Id,
-                Username = user.Username,
-                Name = user.Name
-            });
+
+                HttpContext.Session.SetString("Name", user.Name);
+                HttpContext.Session.SetInt32("ID", user.Id);
+                HttpContext.Session.SetString("Username", user.Username);
+                return Ok(new
+                {
+                    Id = user.Id,
+                    Username = user.Username,
+                    Name = user.Name
+                });
+            }
         }
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Register([FromBody]User userS)
+        public string Register([FromBody]User userS)
         {
             try
             {
-                // save 
                _userService.Create(userS, userS.Password);
-                return Ok();
+                return "Ok()";
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                
+                return ex.Message;
             }
         }
-        [HttpGet("{id}")]
-        public IActionResult GetById(int id)
+        
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult GetSession()
         {
-            var user = _userService.GetById(id);
-            return Ok(user);
+            string a = HttpContext.Session.GetString("Name");
+            string b = HttpContext.Session.GetInt32("ID").ToString();
+            string c = HttpContext.Session.GetString("Username");
+            Console.Write(a);
+            if(a == null || a == "")
+            {
+
+                return Unauthorized();
+            }
+            else
+            {
+                return Ok(new
+                {
+                    Id = b,
+                    Username = c,
+                    Name =a
+                });
+            }
+            
+       
         }
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            var users = _userService.GetAll();
-           return Ok(users);
-        }
+        /*  [HttpGet("{id}")]
+          public IActionResult GetById(int id)
+          {
+              var user = _userService.GetById(id);
+              return Ok(user);
+          }
+          [HttpGet]
+          public IActionResult GetAll()
+          {
+              var users = _userService.GetAll();
+             return Ok(users);
+          }*/
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody]User userDto)
         {

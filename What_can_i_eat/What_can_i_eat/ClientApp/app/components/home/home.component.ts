@@ -1,21 +1,30 @@
 import { Component, Inject } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers, Response } from '@angular/http';
+import { Router, ActivatedRoute } from '@angular/router';
+import 'rxjs/add/operator/map'
+import { User } from "../models/index";
 
 @Component({
-    selector: 'home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-    private baseUrl = "";
 
-    constructor(private http: Http, @Inject('BASE_URL') baseUrl: string) {
-        baseUrl = this.baseUrl;
+    constructor(private http: Http,
+        private route: ActivatedRoute,
+        private router: Router, ) {
+    }
+    private currentUser: User;
+     
+        
 
+       /* session() {
+           
+            this.http.post('http://localhost:4133/inlog/getsession', "").map((response: Response) => {
+                let user = response.json();
+                this.currentUser = user;
+                });
+        }*/
     }
-    public login() {
-        this.http.post(this.baseUrl + 'api/SampleData/', {}).subscribe(result => {
-            console.log(result);
-        }, error => console.error(error));
-    }
-}
+   
+

@@ -1,5 +1,5 @@
 {
-  "name": "test",
+  "name": "What can i eat",
   "private": true,
   "version": "0.0.0",
   "scripts": {
@@ -19,6 +19,7 @@
     "@angular/router": "4.2.5",
     "@ngtools/webpack": "1.5.0",
     "@types/webpack-env": "1.13.0",
+    "angular-localstorage": "^1.1.5",
     "angular2-template-loader": "0.6.2",
     "aspnet-prerendering": "^3.0.1",
     "aspnet-webpack": "^2.0.1",

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppModuleShared } from './app.module.shared';
 import { AppComponent } from './components/app/app.component';
-
+import { checkLogged } from './components/checks/index'
 @NgModule({
     bootstrap: [ AppComponent ],
     imports: [
@@ -10,7 +10,10 @@ import { AppComponent } from './components/app/app.component';
         AppModuleShared
     ],
     providers: [
-        { provide: 'BASE_URL', useFactory: getBaseUrl }
+        { provide: 'BASE_URL', useFactory: getBaseUrl },
+        checkLogged
+          
+        
     ]
 })
 export class AppModule {
