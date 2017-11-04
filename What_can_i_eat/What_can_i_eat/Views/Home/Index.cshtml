@@ -1,9 +1,28 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+<script>
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '1388927634487531',
+            autoLogAppEvents: true,
+            xfbml: true,
+            version: 'v2.10'
+        });
+        FB.AppEvents.logPageView();
+    };
 
-<app asp-prerender-module="ClientApp/dist/main-server">Loading...</app>
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
 
+</script>
+<app asp-ng2-prerender-module="ClientApp/dist/main-server">Loading...</app>
+<script src="https://cdn.auth0.com/js/auth0/8.10.1/auth0.min.js"></script>
 <script src="~/dist/vendor.js" asp-append-version="true"></script>
 @section scripts {
     <script src="~/dist/main-client.js" asp-append-version="true"></script>

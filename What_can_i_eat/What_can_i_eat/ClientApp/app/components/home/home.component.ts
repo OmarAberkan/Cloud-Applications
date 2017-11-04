@@ -12,19 +12,20 @@ export class HomeComponent {
 
     constructor(private http: Http,
         private route: ActivatedRoute,
-        private router: Router, ) {
+        private router: Router) {
+        this.session();
     }
     private currentUser: User;
      
         
 
-       /* session() {
+       session() {
            
             this.http.post('http://localhost:4133/inlog/getsession', "").map((response: Response) => {
                 let user = response.json();
                 this.currentUser = user;
                 });
-        }*/
+        }
     }
    
 

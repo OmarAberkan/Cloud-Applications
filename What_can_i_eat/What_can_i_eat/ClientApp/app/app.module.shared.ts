@@ -9,6 +9,7 @@ import { HomeComponent } from './components/home/home.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
+import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { checkLogged } from './components/checks/index'
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import { checkLogged } from './components/checks/index'
         CounterComponent,
         RegisterComponent,
         LoginComponent,
-        HomeComponent
+        HomeComponent,  
+        NavMenuComponent
     ], providers: [
          checkLogged
     ],

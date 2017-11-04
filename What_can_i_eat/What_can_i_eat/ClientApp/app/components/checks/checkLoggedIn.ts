@@ -4,19 +4,19 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
 @Injectable()
 
 export class checkLogged implements CanActivate {
-    constructor(private router: Router, private http: Http) { }
+    static LoggedIn: Boolean = false;
+    static route: Router;
+    constructor(public router: Router, private http: Http) { }
 
     canActivate() {
 
-
-        this.http.post('http://localhost:4133/inlog/getsession', "").subscribe(
-            data => {  return true; }, err => {
-                this.router.navigate(['/login']);
-                return false;
-            });
-       
+        if (checkLogged.LoggedIn) {
+            return true;
+        }
+        this.router.navigate(['/login']);
         return false;
 
 
     }
+  
 }
