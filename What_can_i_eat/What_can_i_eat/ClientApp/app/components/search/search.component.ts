@@ -3,16 +3,17 @@ import { Http, Response } from '@angular/http';
 
 
 @Component({
-    selector: 'counter',
-    templateUrl: './counter.component.html'
+    selector: 'search',
+    templateUrl: './search.component.html'
 })
-export class CounterComponent {
+export class SearchComponent {
     constructor(private http: Http) { }
    
     zoek = '';
     apiValuesarray: string[] = [];
     ingredienten: string[] = [];
     alles: string[] = [];
+
     zoeken() {
         this.http.get('https://api.nal.usda.gov/ndb/search/?format=json&q=' + this.zoek + '&sort=n&max=5&offset=0&ds=Branded Food Products&api_key=O8LZuyPzbtntuCwBEaUQObsmWnkkCOjixT7kRGR8')
         .subscribe(
