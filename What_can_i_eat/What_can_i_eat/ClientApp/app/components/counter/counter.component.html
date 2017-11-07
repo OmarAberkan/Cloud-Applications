@@ -1,10 +1,52 @@
-<nav-menu></nav-menu>
-<h1>Counter</h1>
-<div class='col-sm-9 body-content'>
-    <h1>Counter</h1> 
-<p>This is a simple example of an Angular component.</p>
+<h1>Search</h1>
 
-<p>Current count: <strong>{{ currentCount }}</strong></p>
+<input type="text" [(ngModel)]=zoek /><button (click)=zoeken()>Zoek</button>
 
-<button (click)="incrementCounter()">Increment</button>
-    </div>
+<ul *ngFor="let  product of apiValuesarray ">
+    <li >{{product.name}}</li>
+    <button (click)=info(product.ndbno)>Meer informatie</button>
+ 
+</ul>
+
+<br />
+<p>Ingredienten:</p>
+<p  >
+    {{ingredienten}}
+
+</p>
+
+<table >
+    <tr>
+        <th>Name</th>
+        <th>Group</th>
+        <th>Values</th>
+        <th>Unit</th>
+       
+    </tr>
+    <tr *ngFor="let  nutrient of alles ">
+        <td>{{nutrient.name}}</td>
+        <td>{{nutrient.group}}</td>
+        <td>{{nutrient.value}}</td>
+        <td>{{nutrient.unit}}</td>
+     
+    </tr>
+ 
+   
+</table>
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
