@@ -23,6 +23,7 @@ export class LoginComponent {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
     public loginFB() {
+      
         FB.getLoginStatus((response) => {
             if (response.status === 'connected') {
                 checkLogged.LoggedIn = true;
