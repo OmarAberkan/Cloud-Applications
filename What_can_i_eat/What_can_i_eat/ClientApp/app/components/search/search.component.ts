@@ -13,16 +13,16 @@ export class SearchComponent {
     apiValuesarray: string[] = [];
     ingredienten: string[] = [];
     alles: string[] = [];
-
+    arrSplit: string[] = [];
+   
     zoeken() {
         this.http.get('https://api.nal.usda.gov/ndb/search/?format=json&q=' + this.zoek + '&sort=n&max=5&offset=0&ds=Branded Food Products&api_key=O8LZuyPzbtntuCwBEaUQObsmWnkkCOjixT7kRGR8')
         .subscribe(
             (res: Response) => {
             
                 this.apiValuesarray = res.json().list.item as string[];
-                console.log(this.apiValuesarray);
-
-                
+                //console.log('test tot hier');
+                console.log(this.apiValuesarray);            
             }
         )
     }
@@ -35,9 +35,9 @@ export class SearchComponent {
 
                 this.alles = res.json().report.food.nutrients;
                 this.ingredienten = res.json().report.food.ing.desc as string[];
+                this.arrSplit = this.ingredienten.toString().split(',');
+                console.log(this.arrSplit);
                 console.log(this.alles);
-
-
             }
             )
 
